@@ -3,12 +3,9 @@ name: Pipeline CI
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   build-and-test:
@@ -19,7 +16,18 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Welcome message
-        run: echo "Bienvenue dans GitHub Actions"
+        run: echo "Bienvenue dans notre pipeline CI"
 
       - name: List files
         run: ls -la
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run tests
+        run: pytest
